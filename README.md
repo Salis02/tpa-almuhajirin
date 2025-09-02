@@ -1,4 +1,4 @@
-<p align="center">SISTEM INFORMASI TPA AL MUHAJIRIN</p>
+# SISTEM INFORMASI TPA AL MUHAJIRIN
 
 ## About Sisem
 
@@ -12,12 +12,12 @@ Sistem dibangun untuk mempermudah pengelolaan, operasional, dan montioring santr
 
 ## Teknologi yang dipakai
 
-# Frontend
+### Frontend
 
 - Preline UI + blade templating
 - Node v22
 
-# Backend + Database
+### Backend + Database
 
 - Laravel v12 
 - MySQL
