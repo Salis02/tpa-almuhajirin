@@ -7,7 +7,7 @@ Sistem dibangun untuk mempermudah pengelolaan, operasional, dan montioring santr
 ## Fitur yang diberikan
 
 - Data santri management
-- Jadwal pelajaran per kelas (Abu Bakar, Umar, dan Ali)
+- Jadwal pelajaran per kelas (Abu Bakar, Umar, dan Usman)
 - etc..
 
 ## Teknologi yang dipakai
