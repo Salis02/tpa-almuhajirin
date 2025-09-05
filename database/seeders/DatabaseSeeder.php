@@ -17,6 +17,7 @@ class DatabaseSeeder extends Seeder
             ClassSeeder::class,
             RoleSeeder::class,
             UserSeeder::class,
+            ScheduleTypeSeeder::class,
         ]);
     }
 }

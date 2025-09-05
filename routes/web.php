@@ -5,6 +5,7 @@ use App\Http\Controllers\Auth\LogoutController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\SantriController;
 use App\Http\Controllers\UstadzController;
+use App\Http\Controllers\ScheduleController;
 use Illuminate\Support\Facades\Route;
 
 // Authentication Routes
@@ -14,6 +15,7 @@ Route::middleware('guest')->group(function () {
 });
 
 Route::middleware('auth')->group(function () {
+    //Logout
     Route::post('/logout', [LogoutController::class, 'logout'])->name('logout');
     
     // Dashboard
@@ -24,4 +26,8 @@ Route::middleware('auth')->group(function () {
     
     // Ustadz Management
     Route::resource('ustadz', UstadzController::class);
+
+    // Schedule Management
+    Route::resource('schedule', ScheduleController::class);
+    Route::get('/schedule-calendar', [ScheduleController::class, 'calendar'])->name('schedule.calendar');
 });
