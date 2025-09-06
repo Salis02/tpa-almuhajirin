@@ -20,8 +20,8 @@
     <x-sidebar-item 
         icon="calendar" 
         label="Penjadwalan" 
-        route="#" 
-        :active="false" />
+        route="schedule.index" 
+        :active="request()->routeIs('schedule.*')" />
 
     <x-sidebar-item 
         icon="document" 
