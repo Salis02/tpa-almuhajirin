@@ -11,19 +11,24 @@
     </div>
 
     <div class="grid gap-6 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4">
+        @php
+            $totalSantri = \App\Models\Santri::count();
+            $totalUstadz = \App\Models\Ustadz::count();
+            $totalClass = \App\Models\TpaClass::count();
+        @endphp
         <div class="p-6 bg-white dark:bg-neutral-900 rounded-2xl shadow-sm border border-gray-200 dark:border-neutral-700">
             <h3 class="text-lg font-semibold text-gray-800 dark:text-white mb-2">Total Santri</h3>
-            <p class="text-3xl font-bold text-blue-600 dark:text-blue-400">150</p>
+            <p class="text-3xl font-bold text-blue-600 dark:text-blue-400">{{ $totalSantri }}</p>
         </div>
 
         <div class="p-6 bg-white dark:bg-neutral-900 rounded-2xl shadow-sm border border-gray-200 dark:border-neutral-700">
             <h3 class="text-lg font-semibold text-gray-800 dark:text-white mb-2">Ustadz</h3>
-            <p class="text-3xl font-bold text-green-600 dark:text-green-400">12</p>
+            <p class="text-3xl font-bold text-green-600 dark:text-green-400">{{ $totalUstadz }}</p>
         </div>
 
         <div class="p-6 bg-white dark:bg-neutral-900 rounded-2xl shadow-sm border border-gray-200 dark:border-neutral-700">
             <h3 class="text-lg font-semibold text-gray-800 dark:text-white mb-2">Kelas Aktif</h3>
-            <p class="text-3xl font-bold text-purple-600 dark:text-purple-400">8</p>
+            <p class="text-3xl font-bold text-purple-600 dark:text-purple-400">{{  $totalClass }}</p>
         </div>
     </div>
 

@@ -25,7 +25,7 @@
 
     <x-sidebar-item 
         icon="document" 
-        label="Laporan" 
-        route="#" 
-        :active="false" />
+        label="Laporan Santri" 
+        route="report.index" 
+        :active="request()->routeIs('report.*')" />
 </ul>

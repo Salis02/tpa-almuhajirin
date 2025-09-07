@@ -26,9 +26,20 @@ class Schedule extends Model
 
     protected $casts = [
         'date' => 'date',
-        'start_time' => 'datetime:H:i',
-        'end_time' => 'datetime:H:i',
+        'start_time' => 'string', // fix dari datetime
+        'end_time'   => 'string', // fix dari datetime
     ];
+
+    // Accessors untuk Carbon
+    public function getStartTimeCarbonAttribute()
+    {
+        return \Carbon\Carbon::createFromFormat('H:i:s', $this->start_time);
+    }
+
+    public function getEndTimeCarbonAttribute()
+    {
+        return \Carbon\Carbon::createFromFormat('H:i:s', $this->end_time);
+    }
 
     // Relationships
     public function tpaClass()
@@ -66,13 +77,13 @@ class Schedule extends Model
 
     public function getAvailableSlotsAttribute()
     {
-        $max = $this->max_participants ?: $this->scheduleType->max_participants;
+        $max = $this->max_participants ?? optional($this->scheduleType)->max_participants ?? 0;
         return $max - $this->participant_count;
     }
 
     public function getDurationAttribute()
     {
-        return $this->start_time->diffInMinutes($this->end_time);
+        return $this->start_time_carbon->diffInMinutes($this->end_time_carbon);
     }
 
     // Scopes
@@ -94,5 +105,22 @@ class Schedule extends Model
     public function scopeByType($query, $typeId)
     {
         return $query->where('schedule_type_id', $typeId);
+    }
+
+    // Scope untuk check conflict
+    public function scopeConflict($query, $ustadzId, $date, $start, $end, $ignoreId = null)
+    {
+        return $query->where('ustadz_id', $ustadzId)
+                     ->when($ignoreId, fn($q) => $q->where('id', '!=', $ignoreId))
+                     ->where('date', $date)
+                     ->where(function ($q) use ($start, $end) {
+                         $q->whereBetween('start_time', [$start, $end])
+                           ->orWhereBetween('end_time', [$start, $end])
+                           ->orWhere(function ($sub) use ($start, $end) {
+                               $sub->where('start_time', '<=', $start)
+                                   ->where('end_time', '>=', $end);
+                           });
+                     })
+                     ->where('status', '!=', 'cancelled');
     }
 }

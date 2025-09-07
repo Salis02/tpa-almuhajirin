@@ -69,20 +69,26 @@
                             <!-- Date -->
                             <div>
                                 <label class="block text-sm font-medium mb-2 dark:text-white">Tanggal *</label>
-                                <input type="date" name="date" required value="{{ $schedule->date->format('Y-m-d') }}"
-                                       class="py-3 px-4 block w-full border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 dark:focus:ring-neutral-600">
+                                {{-- <input type="date" name="date" required value="{{ $schedule->date->format('Y-m-d') }}"
+                                       class="py-3 px-4 block w-full border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 dark:focus:ring-neutral-600"> --}}
+                                       <input type="time" name="start_time" required value="{{ $schedule->start_time_carbon->format('H:i') }}"
+                                        class="py-3 px-4 block w-full border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 dark:focus:ring-neutral-600"
+                                       >
                             </div>
 
                             <!-- Time -->
                             <div class="grid grid-cols-2 gap-4">
                                 <div>
                                     <label class="block text-sm font-medium mb-2 dark:text-white">Waktu Mulai *</label>
-                                    <input type="time" name="start_time" required value="{{ $schedule->start_time->format('H:i') }}"
-                                           class="py-3 px-4 block w-full border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 dark:focus:ring-neutral-600">
+                                    {{-- <input type="time" name="start_time" required value="{{ $schedule->start_time->format('H:i') }}"
+                                           class="py-3 px-4 block w-full border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 dark:focus:ring-neutral-600"> --}}
+                                           <input type="time" name="end_time" required value="{{ $schedule->end_time_carbon->format('H:i') }}"
+                                            class="py-3 px-4 block w-full border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 dark:focus:ring-neutral-600"
+                                           >
                                 </div>
                                 <div>
                                     <label class="block text-sm font-medium mb-2 dark:text-white">Waktu Selesai *</label>
-                                    <input type="time" name="end_time" required value="{{ $schedule->end_time->format('H:i') }}"
+                                    <input type="time" name="end_time" required value="{{ $schedule->end_time_carbon->format('H:i') }}"
                                            class="py-3 px-4 block w-full border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 dark:focus:ring-neutral-600">
                                 </div>
                             </div>
@@ -215,4 +221,21 @@ document.addEventListener('DOMContentLoaded', function() {
                             <div class="flex items-center space-x-2 mb-2">
                                 <input type="checkbox" name="santri_ids[]" value="${santri.id}" 
                                        class="h-4 w-4 rounded border-gray-300 text-blue-600 focus:ring-blue-500">
-                                <label class="text-sm text-gray-700 dark:text-gray-300"
+                                <label class="text-sm text-gray-700 dark:text-gray-300">
+                                        ${santri.full_name} (${santri.nis})
+                                    </label>
+                                </div>
+                            `;
+                        });
+                    } else {
+                        html = '<p class="text-sm text-gray-500 dark:text-gray-400">Tidak ada santri aktif di kelas ini</p>';
+                    }
+                    document.getElementById(`edit_santri_list_${scheduleId}`).innerHTML = html;
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    document.getElementById(`edit_santri_list_${scheduleId}`).innerHTML = '<p class="text-sm text-red-500">Error loading santri data</p>';
+                });
+        }
+    });
+</script>

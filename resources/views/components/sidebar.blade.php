@@ -4,7 +4,7 @@
         <!-- Sidebar Header -->
         <div class="p-4 border-b border-gray-200 dark:border-neutral-700">
             <h2 class="font-semibold text-lg text-gray-900 dark:text-white">
-                TPA Al Muhajirin
+                Sidebar Navigation
             </h2>
         </div>
 
@@ -14,7 +14,7 @@
         </nav>
 
         <!-- User Profile -->
-        <x-sidebar-user-profile />
+        {{-- <x-sidebar-user-profile /> --}}
     </div>
 </aside>
 
@@ -25,7 +25,7 @@
             <!-- Mobile Header -->
             <div class="p-4 border-b border-gray-200 dark:border-neutral-700 flex justify-between items-center">
                 <h2 class="font-semibold text-lg text-gray-900 dark:text-white">
-                    TPA Al Muhajirin
+                    Sidebar Navigation
                 </h2>
                 <button type="button" 
                         class="p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-neutral-700" 
@@ -42,7 +42,7 @@
             </nav>
 
             <!-- Mobile User Profile -->
-            <x-sidebar-user-profile />
+            {{-- <x-sidebar-user-profile /> --}}
         </div>
     </div>
 </div>

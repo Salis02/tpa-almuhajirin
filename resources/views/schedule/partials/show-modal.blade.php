@@ -51,7 +51,13 @@
                                 </div>
                                 <div>
                                     <label class="block text-sm font-medium text-gray-500 dark:text-gray-400">Waktu</label>
-                                    <p class="text-sm text-gray-900 dark:text-white">{{ $schedule->start_time->format('H:i') }} - {{ $schedule->end_time->format('H:i') }} ({{ $schedule->duration }} menit)</p>
+                                  <p class="text-sm text-gray-900 dark:text-white">
+    {{ $schedule->start_time_carbon->format('H:i') }} - 
+    {{ $schedule->end_time_carbon->format('H:i') }}
+    ({{ $schedule->duration }} menit)
+</p>
+
+
                                 </div>
                                 @if($schedule->location)
                                     <div>

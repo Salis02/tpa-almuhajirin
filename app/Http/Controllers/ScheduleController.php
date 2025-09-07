@@ -76,18 +76,25 @@ class ScheduleController extends Controller
         ]);
 
         // Check for schedule conflicts
-        $conflict = Schedule::where('ustadz_id', $validated['ustadz_id'])
-                          ->where('date', $validated['date'])
-                          ->where(function ($query) use ($validated) {
-                              $query->whereBetween('start_time', [$validated['start_time'], $validated['end_time']])
-                                    ->orWhereBetween('end_time', [$validated['start_time'], $validated['end_time']])
-                                    ->orWhere(function ($q) use ($validated) {
-                                        $q->where('start_time', '<=', $validated['start_time'])
-                                          ->where('end_time', '>=', $validated['end_time']);
-                                    });
-                          })
-                          ->where('status', '!=', 'cancelled')
-                          ->exists();
+        $conflict = Schedule::conflict(
+            $validated['ustadz_id'],
+            $validated['date'],
+            $validated['start_time'],
+            $validated['end_time']
+        )->exists();
+
+        // $conflict = Schedule::where('ustadz_id', $validated['ustadz_id'])
+        //                   ->where('date', $validated['date'])
+        //                   ->where(function ($query) use ($validated) {
+        //                       $query->whereBetween('start_time', [$validated['start_time'], $validated['end_time']])
+        //                             ->orWhereBetween('end_time', [$validated['start_time'], $validated['end_time']])
+        //                             ->orWhere(function ($q) use ($validated) {
+        //                                 $q->where('start_time', '<=', $validated['start_time'])
+        //                                   ->where('end_time', '>=', $validated['end_time']);
+        //                             });
+        //                   })
+        //                   ->where('status', '!=', 'cancelled')
+        //                   ->exists();
 
         if ($conflict) {
             return redirect()->back()
@@ -153,19 +160,27 @@ class ScheduleController extends Controller
         ]);
 
         // Check for schedule conflicts (exclude current schedule)
-        $conflict = Schedule::where('ustadz_id', $validated['ustadz_id'])
-                          ->where('id', '!=', $schedule->id)
-                          ->where('date', $validated['date'])
-                          ->where(function ($query) use ($validated) {
-                              $query->whereBetween('start_time', [$validated['start_time'], $validated['end_time']])
-                                    ->orWhereBetween('end_time', [$validated['start_time'], $validated['end_time']])
-                                    ->orWhere(function ($q) use ($validated) {
-                                        $q->where('start_time', '<=', $validated['start_time'])
-                                          ->where('end_time', '>=', $validated['end_time']);
-                                    });
-                          })
-                          ->where('status', '!=', 'cancelled')
-                          ->exists();
+        $conflict = Schedule::conflict(
+            $validated['ustadz_id'],
+            $validated['date'],
+            $validated['start_time'],
+            $validated['end_time'],
+            $schedule->id
+        )->exists();
+
+        // $conflict = Schedule::where('ustadz_id', $validated['ustadz_id'])
+        //                   ->where('id', '!=', $schedule->id)
+        //                   ->where('date', $validated['date'])
+        //                   ->where(function ($query) use ($validated) {
+        //                       $query->whereBetween('start_time', [$validated['start_time'], $validated['end_time']])
+        //                             ->orWhereBetween('end_time', [$validated['start_time'], $validated['end_time']])
+        //                             ->orWhere(function ($q) use ($validated) {
+        //                                 $q->where('start_time', '<=', $validated['start_time'])
+        //                                   ->where('end_time', '>=', $validated['end_time']);
+        //                             });
+        //                   })
+        //                   ->where('status', '!=', 'cancelled')
+        //                   ->exists();
 
         if ($conflict) {
             return redirect()->back()
@@ -229,8 +244,8 @@ class ScheduleController extends Controller
                                 return [
                                     'id' => $schedule->id,
                                     'title' => $schedule->title,
-                                    'start' => $schedule->date->format('Y-m-d') . 'T' . $schedule->start_time->format('H:i:s'),
-                                    'end' => $schedule->date->format('Y-m-d') . 'T' . $schedule->end_time->format('H:i:s'),
+                                    'start' => $schedule->date->format('Y-m-d') . 'T' . $schedule->start_time_carbon->format('H:i:s'),
+                                    'end'   => $schedule->date->format('Y-m-d') . 'T' . $schedule->end_time_carbon->format('H:i:s'),
                                     'backgroundColor' => $this->getScheduleColor($schedule->scheduleType->name),
                                     'borderColor' => $this->getScheduleColor($schedule->scheduleType->name),
                                     'extendedProps' => [

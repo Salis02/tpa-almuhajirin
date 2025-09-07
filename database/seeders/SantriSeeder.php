@@ -12,6 +12,6 @@ class SantriSeeder extends Seeder
      */
     public function run(): void
     {
-        //
+        \App\Models\Santri::factory(30)->create(); // bikin 30 santri dummy
     }
 }

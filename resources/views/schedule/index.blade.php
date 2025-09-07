@@ -1,5 +1,27 @@
 <x-app-layout title="Penjadwalan KBM - TPA Al Muhajirin">
     <div class="space-y-6">
+        @if(session('success'))
+    <div class="p-4 mb-4 text-sm text-green-700 bg-green-100 rounded-lg dark:bg-green-900/20 dark:text-green-400">
+        {{ session('success') }}
+    </div>
+@endif
+
+@if(session('error'))
+    <div class="p-4 mb-4 text-sm text-red-700 bg-red-100 rounded-lg dark:bg-red-900/20 dark:text-red-400">
+        {{ session('error') }}
+    </div>
+@endif
+
+@if($errors->any())
+    <div class="p-4 mb-4 text-sm text-red-700 bg-red-100 rounded-lg dark:bg-red-900/20 dark:text-red-400">
+        <ul class="list-disc pl-5">
+            @foreach($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+@endif
+
         <!-- Header Section -->
         <div class="flex justify-between items-center">
             <div>
@@ -149,7 +171,8 @@
                                         <span>{{ $schedule->tpaClass->display_name }}</span>
                                         <span>{{ $schedule->ustadz->full_name }}</span>
                                         <span>{{ $schedule->date->format('d M Y') }}</span>
-                                        <span>{{ $schedule->start_time->format('H:i') }} - {{ $schedule->end_time->format('H:i') }}</span>
+                                        {{-- <span>{{ $schedule->start_time->format('H:i') }} - {{ $schedule->end_time->format('H:i') }}</span> --}}
+                                        <span>{{ $schedule->start_time_carbon->format('H:i') }} - {{ $schedule->end_time_carbon->format('H:i') }}</span>
                                         <span>{{ $schedule->participant_count }} peserta</span>
                                     </div>
                                 </div>

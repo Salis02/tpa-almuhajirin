@@ -21,6 +21,10 @@
 
             <!-- Right side -->
             <div class="flex items-center space-x-4">
+
+                <!-- Toggle switch mode -->
+                <x-dark-mode-toggle/>
+                
                 <!-- User Info -->
                 <div class="hidden md:flex md:items-center md:space-x-3">
                     <div class="text-right">

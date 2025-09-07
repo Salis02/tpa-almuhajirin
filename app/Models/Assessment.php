@@ -49,7 +49,15 @@ class Assessment extends Model
                     'step' => $config['step'] ?? 1,
                 ];
             case 'grade':
-                return $config['grades'] ?? ['A', 'B', 'C', 'D'];
+                return [
+                    'grades' => $config['grades'] ?? ['A', 'B', 'C', 'D'],
+                    'descriptions' => $config['descriptions'] ?? [
+                        'A' => 'Sangat Baik',
+                        'B' => 'Baik',
+                        'C' => 'Cukup',
+                        'D' => 'Perlu Perbaikan',
+                    ],
+                ];
             case 'boolean':
                 return $config['labels'] ?? ['Baik', 'Perlu Perbaikan'];
             default:

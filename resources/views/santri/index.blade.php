@@ -1,5 +1,27 @@
 <x-app-layout title="Data Santri - TPA Al Muhajirin">
     <div class="space-y-6">
+        @if(session('success'))
+    <div class="p-4 mb-4 text-sm text-green-700 bg-green-100 rounded-lg dark:bg-green-900/20 dark:text-green-400">
+        {{ session('success') }}
+    </div>
+@endif
+
+@if(session('error'))
+    <div class="p-4 mb-4 text-sm text-red-700 bg-red-100 rounded-lg dark:bg-red-900/20 dark:text-red-400">
+        {{ session('error') }}
+    </div>
+@endif
+
+@if($errors->any())
+    <div class="p-4 mb-4 text-sm text-red-700 bg-red-100 rounded-lg dark:bg-red-900/20 dark:text-red-400">
+        <ul class="list-disc pl-5">
+            @foreach($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+@endif
+
         <!-- Header Section -->
         <div class="flex justify-between items-center">
             <div>
@@ -65,7 +87,7 @@
         </div>
 
         <!-- Stats Cards (sama seperti sebelumnya) -->
-        <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
             @php
                 $totalSantri = \App\Models\Santri::count();
                 $activeSantri = \App\Models\Santri::where('status', 'active')->count();
@@ -96,7 +118,7 @@
 
         <!-- Santri Grid -->
         @if($santris->count() > 0)
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+            <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-4 xl:grid-cols-6 gap-6">
                 @foreach($santris as $santri)
                     <div class="bg-white dark:bg-neutral-900 rounded-lg shadow-sm border border-gray-200 dark:border-neutral-700 overflow-hidden">
                         <!-- Photo -->
@@ -139,6 +161,12 @@
                                         class="flex-1 text-center px-3 py-2 text-sm bg-yellow-50 text-yellow-700 hover:bg-yellow-100 rounded-lg transition-colors dark:bg-yellow-900/20 dark:text-yellow-400 dark:hover:bg-yellow-900/30">
                                     Edit
                                 </button>
+                                <button type="button"
+        data-hs-overlay="#delete-santri-modal-{{ $santri->id }}"
+        class="flex-1 text-center px-3 py-2 text-sm bg-red-50 text-red-700 hover:bg-red-100 rounded-lg transition-colors dark:bg-red-900/20 dark:text-red-400 dark:hover:bg-red-900/30">
+  Hapus
+</button>
+
                             </div>
                         </div>
                     </div>
@@ -148,6 +176,9 @@
                     
                     <!-- Edit Modal untuk setiap santri -->
                     @include('santri.partials.edit-modal', ['santri' => $santri, 'classes' => $classes])
+
+                    <!-- Delete Modal untuk setiap santri -->
+                    @include('santri.partials.delete-modal', ['santri' => $santri, 'classes' => $classes])
                 @endforeach
             </div>
 
