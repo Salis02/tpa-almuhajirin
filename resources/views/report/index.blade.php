@@ -44,7 +44,7 @@
                 <!-- Class Filter -->
                 <div>
                     <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Kelas</label>
-                    <select name="class_id" class="w-full rounded-lg border-gray-300 dark:border-neutral-600 dark:bg-neutral-800 dark:text-white">
+                    <select name="class_id" class="border py-3 px-4 pe-9 block w-full border-gray-200 rounded-full text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600">
                         <option value="">Semua Kelas</option>
                         @foreach($classes as $class)
                             <option value="{{ $class->id }}" {{ request('class_id') == $class->id ? 'selected' : '' }}>
@@ -57,7 +57,7 @@
                 <!-- Period Type Filter -->
                 <div>
                     <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Periode</label>
-                    <select name="period_type" class="w-full rounded-lg border-gray-300 dark:border-neutral-600 dark:bg-neutral-800 dark:text-white">
+                    <select name="period_type" class="border py-3 px-4 pe-9 block w-full border-gray-200 rounded-full text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600">
                         <option value="">Semua Periode</option>
                         <option value="monthly" {{ request('period_type') === 'monthly' ? 'selected' : '' }}>Bulanan</option>
                         <option value="semester" {{ request('period_type') === 'semester' ? 'selected' : '' }}>Semester</option>
@@ -68,7 +68,7 @@
                 <!-- Academic Year Filter -->
                 <div>
                     <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Tahun Ajaran</label>
-                    <select name="academic_year" class="w-full rounded-lg border-gray-300 dark:border-neutral-600 dark:bg-neutral-800 dark:text-white">
+                    <select name="academic_year" class="border py-3 px-4 pe-9 block w-full border-gray-200 rounded-full text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600">
                         <option value="">Semua Tahun</option>
                         @foreach($academicYears as $year)
                             <option value="{{ $year }}" {{ request('academic_year') === $year ? 'selected' : '' }}>
@@ -81,7 +81,7 @@
                 <!-- Status Filter -->
                 <div>
                     <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Status</label>
-                    <select name="status" class="w-full rounded-lg border-gray-300 dark:border-neutral-600 dark:bg-neutral-800 dark:text-white">
+                    <select name="status" class="border py-3 px-4 pe-9 block w-full border-gray-200 rounded-full text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600">
                         <option value="">Semua Status</option>
                         <option value="draft" {{ request('status') === 'draft' ? 'selected' : '' }}>Draft</option>
                         <option value="published" {{ request('status') === 'published' ? 'selected' : '' }}>Published</option>
@@ -196,6 +196,22 @@
                                         class="flex-1 text-center px-3 py-2 text-sm bg-yellow-50 text-yellow-700 hover:bg-yellow-100 rounded-lg transition-colors dark:bg-yellow-900/20 dark:text-yellow-400 dark:hover:bg-yellow-900/30">
                                     Edit
                                 </button>
+                                <button type="button"
+                                        data-hs-overlay="#delete-report-modal-{{ $report->id }}"
+                                        class="flex-1 text-center px-3 py-2 text-sm bg-red-50 text-red-700 hover:bg-red-100 rounded-lg">
+                                    Hapus
+                                </button>
+                                {{-- 🔹 Tombol Preview --}}
+    <a href="{{ route('report.preview', $report->id) }}" target="_blank"
+       class="flex-1 justify-con text-center px-3 py-2 text-sm bg-purple-50 text-purple-700 hover:bg-purple-100 rounded-lg transition-colors dark:bg-purple-900/20 dark:text-purple-400 dark:hover:bg-purple-900/30">
+        Preview
+    </a>
+
+    {{-- 🔹 Tombol Export PDF --}}
+    <a href="{{ route('report.exportPdf', $report->id) }}"
+       class="flex-1 text-center px-3 py-2 text-sm bg-green-50 text-green-700 hover:bg-green-100 rounded-lg transition-colors dark:bg-green-900/20 dark:text-green-400 dark:hover:bg-green-900/30">
+        Export PDF
+    </a>
                             </div>
                         </div>
                     </div>
@@ -205,6 +221,9 @@
                     
                     <!-- Edit Modal -->
                     @include('report.partials.edit-modal', ['report' => $report])
+                
+                    {{-- Delete Modal --}}
+                    @include('report.partials.delete-modal', ['report' => $report])
                 @endforeach
             </div>
 

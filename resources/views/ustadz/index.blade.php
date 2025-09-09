@@ -94,7 +94,7 @@
         </div>
 
         <!-- Stats Cards -->
-        <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
             @php
                 $totalUstadz = \App\Models\Ustadz::count();
                 $activeUstadz = \App\Models\Ustadz::where('status', 'active')->count();
@@ -125,16 +125,32 @@
 
         <!-- Ustadz Grid -->
         @if($ustadz->count() > 0)
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+            <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-4 gap-6">
                 @foreach($ustadz as $item)
                     <div class="bg-white dark:bg-neutral-900 rounded-lg shadow-sm border border-gray-200 dark:border-neutral-700 overflow-hidden">
                         <!-- Photo -->
-                        <div class="aspect-square bg-gray-100 dark:bg-neutral-800 cursor-pointer"
+                        {{-- <div class="aspect-square bg-gray-100 dark:bg-neutral-800 cursor-pointer"
                              data-hs-overlay="#show-ustadz-modal-{{ $item->id }}">
                             <img src="{{ $item->photo_url }}" 
                                  alt="{{ $item->full_name }}"
                                  class="w-full h-full object-cover">
-                        </div>
+                        </div> --}}
+
+                        <!-- Photo -->
+<div class="aspect-square bg-gray-100 dark:bg-neutral-800 cursor-pointer flex items-center justify-center overflow-hidden"
+     data-hs-overlay="#show-ustadz-modal-{{ $item->id }}">
+    @if ($item->photo_path)
+        <img src="{{ $item->photo_url }}" 
+             alt="{{ $item->full_name }}"
+             class="w-full h-full object-cover">
+    @else
+        <!-- Default User Icon -->
+        <svg class="w-16 h-16 text-gray-400 dark:text-gray-500" 
+             xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
+            <path fill-rule="evenodd" d="M12 12c2.761 0 5-2.239 5-5S14.761 2 12 2 7 4.239 7 7s2.239 5 5 5Zm0 2c-3.866 0-7 3.134-7 7a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1c0-3.866-3.134-7-7-7Z" clip-rule="evenodd"/>
+        </svg>
+    @endif
+</div>
 
                         <!-- Content -->
                         <div class="p-4">
@@ -170,15 +186,24 @@
                                         class="flex-1 text-center px-3 py-2 text-sm bg-yellow-50 text-yellow-700 hover:bg-yellow-100 rounded-lg transition-colors dark:bg-yellow-900/20 dark:text-yellow-400 dark:hover:bg-yellow-900/30">
                                     Edit
                                 </button>
+                                <button type="button"
+                                        data-hs-overlay="#delete-ustadz-modal-{{ $item->id }}"
+                                        class="flex-1 text-center px-3 py-2 text-sm bg-red-50 text-red-700 hover:bg-red-100 rounded-lg">
+                                    Hapus
+                                </button>
+                                
                             </div>
                         </div>
                     </div>
-
+                    
                     <!-- Show Modal -->
                     @include('ustadz.partials.show-modal', ['ustadz' => $item])
                     
                     <!-- Edit Modal -->
                     @include('ustadz.partials.edit-modal', ['ustadz' => $item, 'roles' => $roles])
+                    
+                    {{-- Delete Modal --}}
+                    @include('ustadz.partials.delete-modal', ['ustadz' => $item])
                 @endforeach
             </div>
 

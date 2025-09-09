@@ -188,6 +188,11 @@
                                             class="px-3 py-2 text-sm bg-yellow-50 text-yellow-700 hover:bg-yellow-100 rounded-lg transition-colors dark:bg-yellow-900/20 dark:text-yellow-400 dark:hover:bg-yellow-900/30">
                                         Edit
                                     </button>
+                                    <button type="button"
+                                            data-hs-overlay="#delete-schedule-modal-{{ $schedule->id }}"
+                                            class="px-3 py-2 text-sm bg-red-50 text-red-700 hover:bg-red-100 rounded-lg">
+                                        Hapus
+                                    </button>
                                 </div>
                             </div>
                         </div>
@@ -197,6 +202,9 @@
                         
                         <!-- Edit Modal -->
                         @include('schedule.partials.edit-modal', ['schedule' => $schedule, 'classes' => $classes, 'scheduleTypes' => $scheduleTypes, 'ustadzList' => $ustadzList])
+
+                        {{-- Delete Modal --}}
+                        @include('schedule.partials.delete-modal', ['schedule' => $schedule])
                     @endforeach
                 </div>
 

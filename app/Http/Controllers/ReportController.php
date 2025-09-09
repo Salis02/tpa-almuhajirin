@@ -10,6 +10,7 @@ use App\Models\TpaClass;
 use App\Models\StudentReportDetail;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class ReportController extends Controller
 {
@@ -246,5 +247,21 @@ class ReportController extends Controller
         }
 
         return $summary;
+    }
+    public function preview(StudentReport $report)
+    {
+        $report->load(['santri.tpaClass', 'reportDetails.assessment.assessmentCategory', 'creator']);
+
+        return view('report.pdf', compact('report'));
+    }
+
+    public function exportPdf(StudentReport $report)
+    {
+        $report->load(['santri.tpaClass', 'reportDetails.assessment.assessmentCategory', 'creator']);
+
+        $pdf = Pdf::loadView('report.pdf', compact('report'))
+                ->setPaper('A4', 'portrait');
+
+        return $pdf->download("Raport-{$report->santri->name}.pdf");
     }
 }

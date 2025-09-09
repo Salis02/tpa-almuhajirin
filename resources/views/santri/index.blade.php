@@ -1,26 +1,26 @@
 <x-app-layout title="Data Santri - TPA Al Muhajirin">
     <div class="space-y-6">
         @if(session('success'))
-    <div class="p-4 mb-4 text-sm text-green-700 bg-green-100 rounded-lg dark:bg-green-900/20 dark:text-green-400">
-        {{ session('success') }}
-    </div>
-@endif
+            <div class="p-4 mb-4 text-sm text-green-700 bg-green-100 rounded-lg dark:bg-green-900/20 dark:text-green-400">
+                {{ session('success') }}
+            </div>
+        @endif
 
-@if(session('error'))
-    <div class="p-4 mb-4 text-sm text-red-700 bg-red-100 rounded-lg dark:bg-red-900/20 dark:text-red-400">
-        {{ session('error') }}
-    </div>
-@endif
+        @if(session('error'))
+            <div class="p-4 mb-4 text-sm text-red-700 bg-red-100 rounded-lg dark:bg-red-900/20 dark:text-red-400">
+                {{ session('error') }}
+            </div>
+        @endif
 
-@if($errors->any())
-    <div class="p-4 mb-4 text-sm text-red-700 bg-red-100 rounded-lg dark:bg-red-900/20 dark:text-red-400">
-        <ul class="list-disc pl-5">
-            @foreach($errors->all() as $error)
-                <li>{{ $error }}</li>
-            @endforeach
-        </ul>
-    </div>
-@endif
+        @if($errors->any())
+            <div class="p-4 mb-4 text-sm text-red-700 bg-red-100 rounded-lg dark:bg-red-900/20 dark:text-red-400">
+                <ul class="list-disc pl-5">
+                    @foreach($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
 
         <!-- Header Section -->
         <div class="flex justify-between items-center">
@@ -162,10 +162,10 @@
                                     Edit
                                 </button>
                                 <button type="button"
-        data-hs-overlay="#delete-santri-modal-{{ $santri->id }}"
-        class="flex-1 text-center px-3 py-2 text-sm bg-red-50 text-red-700 hover:bg-red-100 rounded-lg transition-colors dark:bg-red-900/20 dark:text-red-400 dark:hover:bg-red-900/30">
-  Hapus
-</button>
+                                        data-hs-overlay="#delete-santri-modal-{{ $santri->id }}"
+                                        class="flex-1 text-center px-3 py-2 text-sm bg-red-50 text-red-700 hover:bg-red-100 rounded-lg transition-colors dark:bg-red-900/20 dark:text-red-400 dark:hover:bg-red-900/30">
+                                    Hapus
+                                </button>
 
                             </div>
                         </div>
