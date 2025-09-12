@@ -56,4 +56,4 @@ MySQL
     php artisan storage:link
 6. Start server
     ```bash
-    php artisan serve
+    composer run dev
