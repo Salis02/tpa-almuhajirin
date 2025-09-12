@@ -46,13 +46,13 @@
                     <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Cari Santri</label>
                     <input type="text" name="search" value="{{ request('search') }}"
                            placeholder="Nama, NIS, atau nickname..."
-                           class="w-full rounded-lg border-gray-300 dark:border-neutral-600 dark:bg-neutral-800 dark:text-white">
+                           class="border py-3 px-4 pe-9 block w-full border-gray-200 rounded-full text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600">
                 </div>
 
                 <!-- Class Filter -->
                 <div>
                     <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Kelas</label>
-                    <select name="class_id" class="w-full rounded-lg border-gray-300 dark:border-neutral-600 dark:bg-neutral-800 dark:text-white">
+                    <select name="class_id" class="border py-3 px-4 pe-9 block w-full border-gray-200 rounded-full text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600">
                         <option value="">Semua Kelas</option>
                         @foreach($classes as $class)
                             <option value="{{ $class->id }}" {{ request('class_id') == $class->id ? 'selected' : '' }}>
@@ -65,7 +65,7 @@
                 <!-- Status Filter -->
                 <div>
                     <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Status</label>
-                    <select name="status" class="w-full rounded-lg border-gray-300 dark:border-neutral-600 dark:bg-neutral-800 dark:text-white">
+                    <select name="status" class="border py-3 px-4 pe-9 block w-full border-gray-200 rounded-full text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600">
                         <option value="">Semua Status</option>
                         <option value="active" {{ request('status') === 'active' ? 'selected' : '' }}>Aktif</option>
                         <option value="inactive" {{ request('status') === 'inactive' ? 'selected' : '' }}>Tidak Aktif</option>
@@ -117,8 +117,8 @@
         </div>
 
         <!-- Santri Grid -->
-        @if($santris->count() > 0)
-            <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-4 xl:grid-cols-6 gap-6">
+        @if($santris->count() > 0 )
+            <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-4 gap-6">
                 @foreach($santris as $santri)
                     <div class="bg-white dark:bg-neutral-900 rounded-lg shadow-sm border border-gray-200 dark:border-neutral-700 overflow-hidden">
                         <!-- Photo -->

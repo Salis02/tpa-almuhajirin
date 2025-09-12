@@ -28,4 +28,11 @@
         label="Laporan Santri" 
         route="report.index" 
         :active="request()->routeIs('report.*')" />
+
+    <x-sidebar-item 
+        icon="folder" 
+        label="Kelola Dokumen" 
+        route="document.index" 
+        :active="request()->routeIs('document.*')" />
+
 </ul>

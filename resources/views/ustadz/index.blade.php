@@ -46,13 +46,13 @@
                     <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Cari Ustadz</label>
                     <input type="text" name="search" value="{{ request('search') }}"
                            placeholder="Nama, NIP, atau email..."
-                           class="w-full rounded-lg border-gray-300 dark:border-neutral-600 dark:bg-neutral-800 dark:text-white">
+                           class="border py-3 px-4 pe-9 block w-full border-gray-200 rounded-full text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600">
                 </div>
 
                 <!-- Status Filter -->
                 <div>
                     <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Status</label>
-                    <select name="status" class="w-full rounded-lg border-gray-300 dark:border-neutral-600 dark:bg-neutral-800 dark:text-white">
+                    <select name="status" class="border py-3 px-4 pe-9 block w-full border-gray-200 rounded-full text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600">
                         <option value="">Semua Status</option>
                         <option value="active" {{ request('status') === 'active' ? 'selected' : '' }}>Aktif</option>
                         <option value="inactive" {{ request('status') === 'inactive' ? 'selected' : '' }}>Tidak Aktif</option>
@@ -63,7 +63,7 @@
                 <!-- Employment Status -->
                 <div>
                     <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Status Kepegawaian</label>
-                    <select name="employment_status" class="w-full rounded-lg border-gray-300 dark:border-neutral-600 dark:bg-neutral-800 dark:text-white">
+                    <select name="employment_status" class="border py-3 px-4 pe-9 block w-full border-gray-200 rounded-full text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600">
                         <option value="">Semua</option>
                         <option value="tetap" {{ request('employment_status') === 'tetap' ? 'selected' : '' }}>Tetap</option>
                         <option value="honorer" {{ request('employment_status') === 'honorer' ? 'selected' : '' }}>Honorer</option>
@@ -74,7 +74,7 @@
                 <!-- Gender Filter -->
                 <div>
                     <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Jenis Kelamin</label>
-                    <select name="gender" class="w-full rounded-lg border-gray-300 dark:border-neutral-600 dark:bg-neutral-800 dark:text-white">
+                    <select name="gender" class="border py-3 px-4 pe-9 block w-full border-gray-200 rounded-full text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600">
                         <option value="">Semua</option>
                         <option value="L" {{ request('gender') === 'L' ? 'selected' : '' }}>Laki-laki</option>
                         <option value="P" {{ request('gender') === 'P' ? 'selected' : '' }}>Perempuan</option>

@@ -7,6 +7,7 @@ use App\Http\Controllers\SantriController;
 use App\Http\Controllers\UstadzController;
 use App\Http\Controllers\ScheduleController;
 use App\Http\Controllers\ReportController;
+use App\Http\Controllers\DocumentController;
 use Illuminate\Support\Facades\Route;
 
 // Authentication Routes
@@ -48,4 +49,8 @@ Route::middleware('auth')->group(function () {
     // Tambahan PDF
     Route::get('/report/{report}/preview', [ReportController::class, 'preview'])->name('report.preview');
     Route::get('/report/{report}/export-pdf', [ReportController::class, 'exportPdf'])->name('report.exportPdf');
+
+    //Dokumen-dokument TPA
+    Route::resource('document', DocumentController::class);
+
 });
