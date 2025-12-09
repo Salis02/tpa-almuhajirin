@@ -4,7 +4,7 @@
 The TPA Al Muhajirin Management System is a modern web-based platform designed to simplify the management and operations of Islamic education (TPA / Taman Pendidikan Al-Qur’an).
 It helps administrators manage students, teachers, schedules, documents, and report cards with an intuitive and responsive interface.
 
-- ✨ Features
+## ✨ Features
 
 - 👨‍🎓 Student management
 
@@ -56,4 +56,4 @@ MySQL
     php artisan storage:link
 6. Start server
     ```bash
-    php artisan serve
+    composer run dev
