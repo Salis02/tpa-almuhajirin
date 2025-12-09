@@ -35,4 +35,10 @@
         route="document.index" 
         :active="request()->routeIs('document.*')" />
 
+    <x-sidebar-item 
+        icon="check-circle"
+        label="Absensi Ustadzah"
+        route="absen.index"
+        :active="request()->routeIs('absen.*')" />
+
 </ul>

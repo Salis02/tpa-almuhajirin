@@ -34,5 +34,8 @@ return [
             'channel' => env('SLACK_BOT_USER_DEFAULT_CHANNEL'),
         ],
     ],
+    'gsheet' => [
+        'webhook_url' => env('GSHEET_WEBHOOK_URL'),
+    ],
 
 ];
