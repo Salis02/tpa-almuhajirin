@@ -41,6 +41,11 @@ class Santri extends Model
         return $this->belongsTo(TpaClass::class, 'class_id');
     }
 
+    public function raports()
+    {
+        return $this->hasMany(TpaRaport::class);
+    }
+
     // Accessors
     public function getAgeAttribute()
     {

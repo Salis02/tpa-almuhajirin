@@ -11,7 +11,7 @@ class Ustadz extends Model
     use HasFactory;
 
     protected $table = 'ustadz';
-    
+
     protected $fillable = [
         'user_id',
         'nip',
@@ -46,6 +46,11 @@ class Ustadz extends Model
     {
         return $this->belongsToMany(Role::class, 'ustadz_roles');
     }
+    
+    public function raports()
+    {
+        return $this->hasMany(TpaRaport::class);
+    }
 
     // Accessors
     public function getAgeAttribute()
@@ -58,8 +63,8 @@ class Ustadz extends Model
         if ($this->photo_path) {
             return Storage::url($this->photo_path);
         }
-        
-        return $this->gender === 'L' 
+
+        return $this->gender === 'L'
             ? asset('images/default-male-avatar.png')
             : asset('images/default-female-avatar.png');
     }
