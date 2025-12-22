@@ -14,8 +14,13 @@ return new class extends Migration
         Schema::create('tpa_raports', function (Blueprint $table) {
             $table->id();
 
-            $table->unsignedBigInteger('santri_id');
-            $table->unsignedBigInteger('ustadz_id');
+            $table->foreignId('santri_id')
+                ->constrained('santris')
+                ->onDelete('restrict');
+
+            $table->foreignId('ustadz_id')
+                ->constrained('ustadz')
+                ->onDelete('restrict');
 
             $table->string('semester');
             $table->string('tahun_ajaran', 9);
@@ -33,11 +38,6 @@ return new class extends Migration
                 ],
                 'tpa_raports_unique_per_semester'
             );
-
-            $table->foreign('ustadz_id')
-                ->references('id')
-                ->on('user')
-                ->onDelete('restrict');
         });
     }
 

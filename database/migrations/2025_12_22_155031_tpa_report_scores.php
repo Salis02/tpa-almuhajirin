@@ -13,7 +13,30 @@ return new class extends Migration
     {
         Schema::create('tpa_raport_scores', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('tpa_raport_id');
+            $table->unsignedBigInteger('tpa_subject_id');
+
+            $table->unsignedTinyInteger('nilai'); // 1 - 100
+            $table->text('keterangan')->nullable();
+
             $table->timestamps();
+
+            // UNIQUE per raport + subject
+            $table->unique(
+                ['tpa_raport_id', 'tpa_subject_id'],
+                'tpa_raport_scores_unique'
+            );
+
+            // Foreign Keys
+            $table->foreign('tpa_raport_id')
+                ->references('id')
+                ->on('tpa_raports')
+                ->onDelete('cascade');
+
+            $table->foreign('tpa_subject_id')
+                ->references('id')
+                ->on('tpa_subjects')
+                ->onDelete('restrict');
         });
     }
 
