@@ -40,5 +40,11 @@
         label="Absensi Ustadzah"
         route="absen.index"
         :active="request()->routeIs('absen.*')" />
+    
+    <x-sidebar-item 
+        icon="list"
+        label="Raport Santri"
+        route="rapot.index"
+        :active="request()->routeIs('rapot.*')" />
 
 </ul>
