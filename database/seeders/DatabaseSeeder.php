@@ -20,7 +20,8 @@ class DatabaseSeeder extends Seeder
             UserSeeder::class,
             ScheduleTypeSeeder::class,
             AssessmentSeeder::class,
-            SantriSeeder::class
+            SantriSeeder::class,
+            TpaSubjectSeeder::class
         ]);
     }
 }
