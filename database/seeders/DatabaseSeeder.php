@@ -2,9 +2,6 @@
 
 namespace Database\Seeders;
 
-use App\Models\Assessment;
-use App\Models\User;
-// use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -21,7 +18,6 @@ class DatabaseSeeder extends Seeder
             ScheduleTypeSeeder::class,
             AssessmentSeeder::class,
             SantriSeeder::class,
-            TpaSubjectSeeder::class
         ]);
     }
 }

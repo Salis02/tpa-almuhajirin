@@ -9,7 +9,6 @@ use App\Http\Controllers\ScheduleController;
 use App\Http\Controllers\ReportController;
 use App\Http\Controllers\DocumentController;
 use App\Http\Controllers\AbsenController;
-use App\Http\Controllers\TpaRaportController;
 use Illuminate\Support\Facades\Route;
 
 // Authentication Routes
@@ -47,7 +46,6 @@ Route::middleware('auth')->group(function () {
     // Report Management
     Route::resource('report', ReportController::class);
     Route::post('/report/{report}/publish', [ReportController::class, 'publish'])->name('report.publish');
-    Route::resource('raports', TpaRaportController::class)->except(['destroy']);
 
     // Tambahan PDF
     Route::get('/report/{report}/preview', [ReportController::class, 'preview'])->name('report.preview');
