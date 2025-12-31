@@ -22,7 +22,7 @@ class AbsenController extends Controller
         ]);
 
         // URL Apps Script
-        $webhookUrl = config('services.gsheet.webhook_url');
+        $webhookUrl = config('services.gsheet.absensi.webhook');
 
         // Payload SESUAI Apps Script
         $response = Http::post($webhookUrl, [

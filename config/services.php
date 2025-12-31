@@ -35,7 +35,13 @@ return [
         ],
     ],
     'gsheet' => [
-        'webhook_url' => env('GSHEET_WEBHOOK_URL'),
+        'absensi' => [
+            'webhook' => env('GSHEET_ABSENSI_WEBHOOK'),
+        ],
+        'raport' => [
+            'webhook' => env('GSHEET_RAPORT_WEBHOOK'),
+        ],
     ],
+
 
 ];
