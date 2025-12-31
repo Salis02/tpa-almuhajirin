@@ -7,6 +7,7 @@ use App\Http\Controllers\SantriController;
 use App\Http\Controllers\UstadzController;
 use App\Http\Controllers\ScheduleController;
 use App\Http\Controllers\ReportController;
+use App\Http\Controllers\RapotController;
 use App\Http\Controllers\DocumentController;
 use App\Http\Controllers\AbsenController;
 use Illuminate\Support\Facades\Route;
@@ -46,6 +47,8 @@ Route::middleware('auth')->group(function () {
     // Report Management
     Route::resource('report', ReportController::class);
     Route::post('/report/{report}/publish', [ReportController::class, 'publish'])->name('report.publish');
+    Route::get('/rapot', [RapotController::class, 'index'])->name('rapot.index');
+    Route::post('/raport', [RapotController::class, 'store'])->name('raport.store');
 
     // Tambahan PDF
     Route::get('/report/{report}/preview', [ReportController::class, 'preview'])->name('report.preview');
