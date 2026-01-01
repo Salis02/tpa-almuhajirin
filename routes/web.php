@@ -48,7 +48,7 @@ Route::middleware('auth')->group(function () {
     Route::resource('report', ReportController::class);
     Route::post('/report/{report}/publish', [ReportController::class, 'publish'])->name('report.publish');
     Route::get('/rapot', [RapotController::class, 'index'])->name('rapot.index');
-    Route::post('/raport', [RapotController::class, 'store'])->name('raport.store');
+    Route::post('/rapot', [RapotController::class, 'store'])->name('rapot.store');
 
     // Tambahan PDF
     Route::get('/report/{report}/preview', [ReportController::class, 'preview'])->name('report.preview');

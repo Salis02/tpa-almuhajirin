@@ -140,4 +140,5 @@ class SantriController extends Controller
         return redirect()->route('santri.index')
                         ->with('success', 'Data santri berhasil dihapus.');
     }
+
 }

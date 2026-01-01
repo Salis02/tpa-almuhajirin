@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
+use App\Models\TpaClass;
+use App\Models\Santri;
 
 class RapotController extends Controller
 {
@@ -24,6 +26,8 @@ class RapotController extends Controller
 
             // Pastikan data array
             $raports = collect($response->json());
+            $classes = TpaClass::orderBy('display_name')->get();
+            $santri = Santri::all();
 
             /**
              * Expected structure per item:
@@ -67,7 +71,9 @@ class RapotController extends Controller
             }
 
             return view('rapot.index', [
-                'raports' => $raports->values(), // reset key
+                'raports' => $raports->values(),
+                'classes' => $classes,
+                'santris' => $santri
             ]);
         } catch (\Throwable $e) {
             report($e);
@@ -80,6 +86,7 @@ class RapotController extends Controller
 
     public function store(Request $request)
     {
+        // dd($request);
         // 1️⃣ Validasi sesuai payload Apps Script
         $data = $request->validate([
             'tahun_ajaran' => 'required|string',
@@ -105,6 +112,27 @@ class RapotController extends Controller
             'catatan' => 'nullable|string',
             'status_raport' => 'nullable|string',
         ]);
+        $data = $request->validate([
+            'santri_id' => 'required|exists:santris,id',
+            'kelas' => 'required|string',
+            'semester' => 'required|string',
+            'tahun_ajaran' => 'required|string',
+
+            'tahsin' => 'required|integer|min:1|max:100',
+            'khot' => 'required|integer|min:1|max:100',
+            'hafalan' => 'required|integer|min:1|max:100',
+            'praktek_sholat' => 'required|integer|min:1|max:100',
+            'praktek_wudhu' => 'required|integer|min:1|max:100',
+            'aqidah_doa' => 'required|integer|min:1|max:100',
+            'ayat_qiroah' => 'required|integer|min:1|max:100',
+            'tajwid' => 'required|integer|min:1|max:100',
+            'bahasa_arab' => 'nullable|integer|min:1|max:100',
+
+            'materi' => 'nullable|string',
+            'catatan' => 'nullable|string',
+            'status_rapot' => 'required|in:draft,published',
+        ]);
+
 
         // 2️⃣ Kirim ke Google Sheets
         $response = Http::post(

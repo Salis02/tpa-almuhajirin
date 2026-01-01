@@ -15,11 +15,22 @@
         @endif
 
         <!-- Header -->
-        <div>
-            <h1 class="text-2xl font-bold text-gray-900 dark:text-white">Raport Santri</h1>
-            <p class="text-gray-600 dark:text-gray-400">
-                Data raport santri yang tersinkron dari Google Sheet
-            </p>
+        <div class="flex justify-between items-center">
+            <div>
+                <h1 class="text-2xl font-bold text-gray-900 dark:text-white">Raport Santri</h1>
+                <p class="text-gray-600 dark:text-gray-400">
+                    Data raport santri yang tersinkron dari Google Sheet
+                </p>
+            </div>
+            <button type="button"
+                class="inline-flex items-center px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-lg transition-colors"
+                data-hs-overlay="#create-rapot-modal">
+                <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
+                </svg>
+                Tambah Rapot Santri
+            </button>
         </div>
 
         <!-- Filter Section -->
@@ -59,8 +70,10 @@
                                    border-gray-200 focus:border-blue-500 focus:ring-blue-500
                                    dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400">
                         <option value="">Semua</option>
-                        <option value="lengkap" {{ request('status') == 'lengkap' ? 'selected' : '' }}>Lengkap</option>
-                        <option value="belum" {{ request('status') == 'belum' ? 'selected' : '' }}>Belum Lengkap</option>
+                        <option value="lengkap" {{ request('status') == 'lengkap' ? 'selected' : '' }}>Lengkap
+                        </option>
+                        <option value="belum" {{ request('status') == 'belum' ? 'selected' : '' }}>Belum Lengkap
+                        </option>
                     </select>
                 </div>
 
@@ -124,4 +137,7 @@
         </div>
 
     </div>
+
+    <!-- Create Modal -->
+    @include('rapot.partials.create-modal', ['classes' => $classes])
 </x-app-layout>
