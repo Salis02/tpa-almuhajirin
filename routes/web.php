@@ -49,6 +49,7 @@ Route::middleware('auth')->group(function () {
     Route::post('/report/{report}/publish', [ReportController::class, 'publish'])->name('report.publish');
     Route::get('/rapot', [RapotController::class, 'index'])->name('rapot.index');
     Route::post('/rapot', [RapotController::class, 'store'])->name('rapot.store');
+    Route::get('/export-pdf', [RapotController::class, 'exportPdf'])->name('rapot.pdf');
 
     // Tambahan PDF
     Route::get('/report/{report}/preview', [ReportController::class, 'preview'])->name('report.preview');

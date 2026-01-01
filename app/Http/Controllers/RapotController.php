@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
+use Barryvdh\DomPDF\Facade\Pdf;
 use App\Models\TpaClass;
 use App\Models\Santri;
 
@@ -98,5 +99,26 @@ class RapotController extends Controller
         }
 
         return back()->with('error', 'Gagal kirim ke GSheet: ' . $response->status());
+    }
+
+    public function exportPdf(Request $request)
+    {
+        // Mengambil data dari GSheet (seperti di index)
+        $url = config('services.gsheet.raport.webhook');
+        $response = Http::get($url);
+        $raports = collect($response->json());
+
+        // Cari data spesifik berdasarkan NIS dan Semester (agar akurat)
+        $data = $raports->where('nis', $request->nis)
+            ->where('semester', $request->semester)
+            ->where('tahun_ajaran', $request->tahun_ajaran)
+            ->first();
+
+        if (!$data) return back()->with('error', 'Data raport tidak ditemukan');
+
+        $pdf = Pdf::loadView('rapot.pdf', compact('data'))
+            ->setPaper('a4', 'portrait');
+
+        return $pdf->stream("Raport_{$data['nama_santri']}_{$data['semester']}.pdf");
     }
 }

@@ -96,6 +96,7 @@
                             <th class="px-4 py-4 font-semibold uppercase tracking-wider whitespace-nowrap">Materi</th>
                             <th class="px-4 py-4 font-semibold uppercase tracking-wider">Catatan</th>
                             <th class="px-4 py-4 font-semibold uppercase tracking-wider">Status</th>
+                            <th class="px-4 py-4 font-semibold uppercase tracking-wider">Aksi</th>
                         </tr>
                     </thead>
                     <tbody class="divide-y divide-gray-200 dark:divide-neutral-700">
@@ -138,6 +139,23 @@
                                         class="px-3 py-1 text-xs font-bold rounded-full {{ strtolower($raport['status_raport']) == 'final' ? 'bg-green-100 text-green-700 dark:bg-green-900/30' : 'bg-yellow-100 text-yellow-700 dark:bg-yellow-900/30' }}">
                                         {{ strtoupper($raport['status_raport']) }}
                                     </span>
+                                </td>
+                                <td class="px-4 py-4 whitespace-nowrap">
+                                    <a href="{{ route('rapot.pdf', [
+                                        'nis' => $raport['nis'],
+                                        'semester' => $raport['semester'],
+                                        'tahun_ajaran' => $raport['tahun_ajaran'],
+                                    ]) }}"
+                                        target="_blank"
+                                        class="inline-flex items-center px-3 py-1.5 bg-red-600 hover:bg-red-700 text-white text-xs font-bold rounded-lg transition">
+                                        <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor"
+                                            viewBox="0 0 24 24">
+                                            <path
+                                                d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z">
+                                            </path>
+                                        </svg>
+                                        PDF
+                                    </a>
                                 </td>
                             </tr>
                         @empty
