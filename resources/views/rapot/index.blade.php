@@ -33,111 +33,125 @@
             </button>
         </div>
 
-        <!-- Filter Section -->
         <div
             class="bg-white dark:bg-neutral-900 rounded-lg p-6 shadow-sm border border-gray-200 dark:border-neutral-700">
             <form method="GET" class="grid grid-cols-1 md:grid-cols-4 gap-4">
-
-                <!-- Search -->
                 <div>
-                    <label class="block text-sm font-medium mb-2 text-gray-700 dark:text-gray-300">
-                        Cari Santri
-                    </label>
+                    <label class="block text-sm font-medium mb-2 text-gray-700 dark:text-gray-300">Cari Santri</label>
                     <input type="text" name="search" value="{{ request('search') }}" placeholder="Nama atau NIS..."
-                        class="border py-3 px-4 block w-full rounded-full text-sm
-                                  border-gray-200 focus:border-blue-500 focus:ring-blue-500
-                                  dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400">
+                        class="border py-3 px-4 block w-full rounded-full text-sm border-gray-200 focus:border-blue-500 focus:ring-blue-500 dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400">
                 </div>
-
-                <!-- Kelas -->
                 <div>
-                    <label class="block text-sm font-medium mb-2 text-gray-700 dark:text-gray-300">
-                        Kelas
-                    </label>
-                    <input type="text" name="kelas" value="{{ request('kelas') }}" placeholder="Contoh: A, B, C"
-                        class="border py-3 px-4 block w-full rounded-full text-sm
-                                  border-gray-200 focus:border-blue-500 focus:ring-blue-500
-                                  dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400">
+                    <label class="block text-sm font-medium mb-2 text-gray-700 dark:text-gray-300">Kelas</label>
+                    <input type="text" name="kelas" value="{{ request('kelas') }}" placeholder="Contoh: Usman"
+                        class="border py-3 px-4 block w-full rounded-full text-sm border-gray-200 focus:border-blue-500 focus:ring-blue-500 dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400">
                 </div>
-
-                <!-- Status Raport -->
                 <div>
-                    <label class="block text-sm font-medium mb-2 text-gray-700 dark:text-gray-300">
-                        Status Raport
-                    </label>
+                    <label class="block text-sm font-medium mb-2 text-gray-700 dark:text-gray-300">Status</label>
                     <select name="status"
-                        class="border py-3 px-4 block w-full rounded-full text-sm
-                                   border-gray-200 focus:border-blue-500 focus:ring-blue-500
-                                   dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400">
-                        <option value="">Semua</option>
-                        <option value="lengkap" {{ request('status') == 'lengkap' ? 'selected' : '' }}>Lengkap
-                        </option>
-                        <option value="belum" {{ request('status') == 'belum' ? 'selected' : '' }}>Belum Lengkap
-                        </option>
+                        class="border py-3 px-4 block w-full rounded-full text-sm border-gray-200 dark:bg-neutral-900 dark:border-neutral-700">
+                        <option value="">Semua Status</option>
+                        <option value="final" {{ request('status') == 'final' ? 'selected' : '' }}>Final</option>
+                        <option value="draft" {{ request('status') == 'draft' ? 'selected' : '' }}>Draft</option>
                     </select>
                 </div>
-
-                <!-- Action -->
                 <div class="flex items-end gap-2">
-                    <button class="px-4 py-2 bg-gray-600 hover:bg-gray-700 text-white rounded-lg">
-                        Filter
-                    </button>
+                    <button
+                        class="px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-full text-sm font-medium transition">Filter</button>
                     <a href="{{ route('rapot.index') }}"
-                        class="px-4 py-2 bg-gray-300 hover:bg-gray-400 text-gray-700 rounded-lg">
-                        Reset
-                    </a>
+                        class="px-6 py-3 bg-gray-100 hover:bg-gray-200 text-gray-600 rounded-full text-sm font-medium transition">Reset</a>
                 </div>
-
             </form>
         </div>
 
-        <!-- Table -->
         <div
-            class="bg-white dark:bg-neutral-900 rounded-lg shadow-sm border border-gray-200 dark:border-neutral-700 overflow-x-auto">
-            <table class="min-w-full text-sm text-left">
-                <thead class="bg-gray-50 dark:bg-neutral-800 text-gray-700 dark:text-gray-300">
-                    <tr>
-                        <th class="px-4 py-3">NIS</th>
-                        <th class="px-4 py-3">Nama Santri</th>
-                        <th class="px-4 py-3">Kelas</th>
-                        <th class="px-4 py-3">Materi</th>
-                        <th class="px-4 py-3">Status Raport</th>
-                    </tr>
-                </thead>
-                <tbody class="divide-y dark:divide-neutral-700">
-                    @forelse($raports as $raport)
-                        <tr class="hover:bg-gray-50 dark:hover:bg-neutral-800">
-                            <td class="px-4 py-3">{{ $raport['nis'] ?? '-' }}</td>
-                            <td class="px-4 py-3 font-medium text-gray-900 dark:text-white">
-                                {{ $raport['nama'] ?? '-' }}
-                            </td>
-                            <td class="px-4 py-3">{{ $raport['kelas'] ?? '-' }}</td>
-                            <td class="px-4 py-3">
-                                {{ $raport['materi'] ?? '-' }}
-                            </td>
-                            <td class="px-4 py-3">
-                                <span
-                                    class="px-2 py-1 text-xs rounded-full
-                                    {{ ($raport['status_raport'] ?? '') === 'lengkap'
-                                        ? 'bg-green-100 text-green-700 dark:bg-green-900/20 dark:text-green-400'
-                                        : 'bg-yellow-100 text-yellow-700 dark:bg-yellow-900/20 dark:text-yellow-400' }}">
-                                    {{ ucfirst($raport['status_raport'] ?? 'belum') }}
-                                </span>
-                            </td>
-                        </tr>
-                    @empty
+            class="bg-white dark:bg-neutral-900 rounded-xl shadow-sm border border-gray-200 dark:border-neutral-700 overflow-hidden">
+            <div class="overflow-x-auto">
+                <table class="min-w-full text-sm text-left border-collapse">
+                    <thead
+                        class="bg-gray-50 dark:bg-neutral-800 text-gray-700 dark:text-gray-300 border-b border-gray-200 dark:border-neutral-700">
                         <tr>
-                            <td colspan="5" class="px-4 py-8 text-center text-gray-500 dark:text-gray-400">
-                                Data raport belum tersedia
-                            </td>
+                            <th class="px-4 py-4 font-semibold uppercase tracking-wider whitespace-nowrap">Tgl Input
+                            </th>
+                            <th class="px-4 py-4 font-semibold uppercase tracking-wider whitespace-nowrap">Tahun/Smstr
+                            </th>
+                            <th class="px-4 py-4 font-semibold uppercase tracking-wider whitespace-nowrap">NIS</th>
+                            <th
+                                class="px-4 py-4 font-semibold uppercase tracking-wider whitespace-nowrap sticky left-0 bg-gray-50 dark:bg-neutral-800 shadow-[2px_0_5px_rgba(0,0,0,0.05)]">
+                                Nama Santri</th>
+                            <th class="px-4 py-4 font-semibold uppercase tracking-wider">Kelas</th>
+                            <th class="px-4 py-4 font-semibold uppercase tracking-wider">Ustadz</th>
+                            <th class="px-3 py-4 text-center bg-blue-50/50 dark:bg-blue-900/10">Tahsin</th>
+                            <th class="px-3 py-4 text-center bg-blue-50/50 dark:bg-blue-900/10">Khot</th>
+                            <th class="px-3 py-4 text-center bg-blue-50/50 dark:bg-blue-900/10">Hafalan</th>
+                            <th class="px-3 py-4 text-center bg-blue-50/50 dark:bg-blue-900/10">Sholat</th>
+                            <th class="px-3 py-4 text-center bg-blue-50/50 dark:bg-blue-900/10">Wudhu</th>
+                            <th class="px-3 py-4 text-center bg-blue-50/50 dark:bg-blue-900/10">Aqidah</th>
+                            <th class="px-3 py-4 text-center bg-blue-50/50 dark:bg-blue-900/10">Doa</th>
+                            <th class="px-3 py-4 text-center bg-blue-50/50 dark:bg-blue-900/10">Ayat</th>
+                            <th class="px-3 py-4 text-center bg-blue-50/50 dark:bg-blue-900/10">Qiroah</th>
+                            <th class="px-3 py-4 text-center bg-blue-50/50 dark:bg-blue-900/10">Tajwid</th>
+
+                            <th class="px-4 py-4 font-bold text-center bg-green-50 dark:bg-green-900/20">RATA2</th>
+                            <th class="px-4 py-4 font-semibold uppercase tracking-wider whitespace-nowrap">Materi</th>
+                            <th class="px-4 py-4 font-semibold uppercase tracking-wider">Catatan</th>
+                            <th class="px-4 py-4 font-semibold uppercase tracking-wider">Status</th>
                         </tr>
-                    @endforelse
-                </tbody>
-            </table>
+                    </thead>
+                    <tbody class="divide-y divide-gray-200 dark:divide-neutral-700">
+                        @forelse($raports as $raport)
+                            <tr class="hover:bg-gray-50 dark:hover:bg-neutral-800 transition">
+                                <td class="px-4 py-4 whitespace-nowrap text-gray-500">
+                                    {{ \Carbon\Carbon::parse($raport['timestamp'])->format('d/m/y H:i') }}</td>
+                                <td class="px-4 py-4 whitespace-nowrap">{{ $raport['tahun_ajaran'] }}
+                                    ({{ $raport['semester'] }})
+                                </td>
+                                <td class="px-4 py-4 whitespace-nowrap font-mono text-xs">{{ $raport['nis'] }}</td>
+                                <td
+                                    class="px-4 py-4 whitespace-nowrap font-bold sticky left-0 bg-white dark:bg-neutral-900 shadow-[2px_0_5px_rgba(0,0,0,0.05)] text-blue-600 dark:text-blue-400">
+                                    {{ $raport['nama_santri'] }}
+                                </td>
+                                <td class="px-4 py-4">{{ $raport['kelas'] }}</td>
+                                <td class="px-4 py-4 whitespace-nowrap">{{ $raport['ustadz'] }}</td>
+
+                                <td class="px-3 py-4 text-center">{{ $raport['nilai']['tahsin'] }}</td>
+                                <td class="px-3 py-4 text-center">{{ $raport['nilai']['khot'] }}</td>
+                                <td class="px-3 py-4 text-center">{{ $raport['nilai']['hafalan'] }}</td>
+                                <td class="px-3 py-4 text-center">{{ $raport['nilai']['praktek_sholat'] }}</td>
+                                <td class="px-3 py-4 text-center">{{ $raport['nilai']['praktek_wudhu'] }}</td>
+                                <td class="px-3 py-4 text-center">{{ $raport['nilai']['aqidah'] }}</td>
+                                <td class="px-3 py-4 text-center">{{ $raport['nilai']['doa_harian'] }}</td>
+                                <td class="px-3 py-4 text-center">{{ $raport['nilai']['ayat_pilihan'] }}</td>
+                                <td class="px-3 py-4 text-center">{{ $raport['nilai']['qiroah'] }}</td>
+                                <td class="px-3 py-4 text-center">{{ $raport['nilai']['tajwid'] }}</td>
+
+                                <td
+                                    class="px-4 py-4 text-center font-bold text-green-600 bg-green-50/30 dark:bg-green-900/10">
+                                    {{ $raport['rata_rata'] }}
+                                </td>
+                                <td class="px-4 py-4 max-w-xs truncate" title="{{ $raport['materi'] }}">
+                                    {{ $raport['materi'] }}</td>
+                                <td class="px-4 py-4 max-w-xs truncate" title="{{ $raport['catatan'] }}">
+                                    {{ $raport['catatan'] }}</td>
+                                <td class="px-4 py-4">
+                                    <span
+                                        class="px-3 py-1 text-xs font-bold rounded-full {{ strtolower($raport['status_raport']) == 'final' ? 'bg-green-100 text-green-700 dark:bg-green-900/30' : 'bg-yellow-100 text-yellow-700 dark:bg-yellow-900/30' }}">
+                                        {{ strtoupper($raport['status_raport']) }}
+                                    </span>
+                                </td>
+                            </tr>
+                        @empty
+                            <tr>
+                                <td colspan="5" class="px-4 py-8 text-center text-gray-500 dark:text-gray-400">
+                                    Data raport belum tersedia
+                                </td>
+                            </tr>
+                        @endforelse
+                    </tbody>
+                </table>
+            </div>
         </div>
 
-    </div>
-
-    <!-- Create Modal -->
-    @include('rapot.partials.create-modal', ['classes' => $classes])
+        <!-- Create Modal -->
+        @include('rapot.partials.create-modal', ['classes' => $classes])
 </x-app-layout>

@@ -13,39 +13,21 @@ class RapotController extends Controller
     {
         try {
             $url = config('services.gsheet.raport.webhook');
+            $response = Http::timeout(15)->get($url);
 
-            if (! $url) {
-                abort(500, 'GSHEET_RAPORT_WEBHOOK belum diset');
+            if (!$response->successful()) {
+                return view('rapot.index', ['raports' => collect(), 'classes' => TpaClass::all(), 'santris' => Santri::all()])
+                    ->with('error', 'Gagal sinkron dengan Google Sheet.');
             }
 
-            $response = Http::timeout(10)->get($url);
-
-            if (! $response->successful()) {
-                return back()->with('error', 'Gagal mengambil data raport dari Google Sheet');
-            }
-
-            // Pastikan data array
             $raports = collect($response->json());
-            $classes = TpaClass::orderBy('display_name')->get();
-            $santri = Santri::all();
-
-            /**
-             * Expected structure per item:
-             * [
-             *   'nis' => '',
-             *   'nama' => '',
-             *   'kelas' => '',
-             *   'materi' => '',
-             *   'status_raport' => ''
-             * ]
-             */
-
-            // 🔍 Filter: Search (nama / nis)
+            // dd($raports);
+            // 🔍 Filter: Search (nama_santri / nis)
             if ($request->filled('search')) {
                 $search = strtolower($request->search);
 
                 $raports = $raports->filter(function ($item) use ($search) {
-                    return str_contains(strtolower($item['nama'] ?? ''), $search)
+                    return str_contains(strtolower($item['nama_santri'] ?? ''), $search)
                         || str_contains(strtolower($item['nis'] ?? ''), $search);
                 });
             }
@@ -53,17 +35,15 @@ class RapotController extends Controller
             // 🏫 Filter: Kelas
             if ($request->filled('kelas')) {
                 $kelas = strtolower($request->kelas);
-
                 $raports = $raports->filter(
                     fn($item) =>
                     strtolower($item['kelas'] ?? '') === $kelas
                 );
             }
 
-            // 📘 Filter: Status Raport
+            // 📘 Filter: Status Raport (Sesuaikan dengan value "Draft" atau "Final")
             if ($request->filled('status')) {
-                $status = strtolower($request->status);
-
+                $status = strtolower($request->status); // misal user pilih 'draft'
                 $raports = $raports->filter(
                     fn($item) =>
                     strtolower($item['status_raport'] ?? '') === $status
@@ -71,16 +51,12 @@ class RapotController extends Controller
             }
 
             return view('rapot.index', [
-                'raports' => $raports->values(),
-                'classes' => $classes,
-                'santris' => $santri
+                'raports' => $raports->values(), // values() untuk me-reset index array setelah difilter
+                'classes' => TpaClass::orderBy('display_name')->get(),
+                'santris' => Santri::all()
             ]);
         } catch (\Throwable $e) {
-            report($e);
-
-            return view('rapot.index', [
-                'raports' => collect(),
-            ])->with('error', 'Terjadi kesalahan saat memuat data raport');
+            return view('rapot.index', ['raports' => collect()])->with('error', 'Koneksi bermasalah.');
         }
     }
 
