@@ -160,7 +160,7 @@
                             </tr>
                         @empty
                             <tr>
-                                <td colspan="5" class="px-4 py-8 text-center text-gray-500 dark:text-gray-400">
+                                <td colspan="21" class="px-4 py-8 text-center text-gray-500 dark:text-gray-400">
                                     Data raport belum tersedia
                                 </td>
                             </tr>
