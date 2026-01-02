@@ -68,7 +68,7 @@ class RapotController extends Controller
             'kelas' => 'required',
             'semester' => 'required',
             'tahun_ajaran' => 'required',
-            'nilai' => 'required|array', // Ini menangkap nilai[tahsin], nilai[khot], dll
+            'nilai' => 'required|array',
             'materi' => 'nullable',
             'catatan' => 'nullable',
             'status_rapot' => 'required',
@@ -85,7 +85,7 @@ class RapotController extends Controller
             'nama_santri' => $santri->full_name,
             'kelas' => $validated['kelas'],
             'ustadz' => $ustadz,
-            'nilai' => $validated['nilai'], // Ini akan jadi objek {tahsin: 80, khot: 90, ...}
+            'nilai' => $validated['nilai'],
             'materi' => $validated['materi'],
             'catatan' => $validated['catatan'],
             'status_raport' => $validated['status_rapot'],
@@ -101,14 +101,33 @@ class RapotController extends Controller
         return back()->with('error', 'Gagal kirim ke GSheet: ' . $response->status());
     }
 
+    public function update(Request $request)
+    {
+        $response = Http::post(config('services.gsheet.raport.webhook'), [
+            'action' => 'UPDATE',
+            'timestamp' => $request->timestamp,
+            'nis' => $request->nis,
+            'tahun_ajaran' => $request->tahun_ajaran,
+            'semester' => $request->semester,
+            'nama_santri' => $request->nama_santri, 
+            'ustadz' => $request->ustadz,
+            'nilai' => $request->nilai,
+            'materi' => $request->materi,
+            'catatan' => $request->catatan,
+            'status_raport' => $request->status_raport
+        ]);
+
+        if ($response->json('success')) {
+            return back()->with('success', 'Raport berhasil diperbarui');
+        }
+        return back()->with('error', 'Gagal update: ' . $response->json('error'));
+    }
     public function exportPdf(Request $request)
     {
-        // Mengambil data dari GSheet (seperti di index)
         $url = config('services.gsheet.raport.webhook');
         $response = Http::get($url);
         $raports = collect($response->json());
 
-        // Cari data spesifik berdasarkan NIS dan Semester (agar akurat)
         $data = $raports->where('nis', $request->nis)
             ->where('semester', $request->semester)
             ->where('tahun_ajaran', $request->tahun_ajaran)

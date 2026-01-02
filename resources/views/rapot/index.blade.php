@@ -156,7 +156,20 @@
                                         </svg>
                                         PDF
                                     </a>
+                                    <button type="button" data-hs-overlay="#edit-rapot-modal-{{ $loop->index }}"
+                                        class="inline-flex items-center px-3 py-1.5 bg-amber-500 hover:bg-amber-600 text-white text-xs font-bold rounded-lg transition">
+                                        EDIT
+                                    </button>
+
+                                    <a href="{{ route('rapot.pdf', [
+                                        'nis' => $raport['nis'],
+                                        'semester' => $raport['semester'],
+                                        'tahun_ajaran' => $raport['tahun_ajaran'],
+                                    ]) }}"
+                                        ...></a>
                                 </td>
+
+                                @include('rapot.partials.edit-modal')
                             </tr>
                         @empty
                             <tr>
