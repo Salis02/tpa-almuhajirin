@@ -101,8 +101,8 @@
                     <div class="space-y-4 mb-6">
                         <div>
                             <label class="block text-sm font-medium mb-2">Materi</label>
-                            <input type="text" name="materi"
-                                class="py-3 px-4 block w-full rounded-lg border-gray-200 text-sm">
+                            <input type="number" name="materi" min="0" max="100" required
+                                class="py-3 px-4 block w-full rounded-lg border-gray-200 text-sm" placeholder="0-100">
                         </div>
 
                         <div>
